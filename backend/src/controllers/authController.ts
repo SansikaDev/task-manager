@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
+import { log } from "console";
 
 export const registerUser = async (
   req: Request,
@@ -26,6 +27,7 @@ export const registerUser = async (
     });
 
     res.status(201).json({ token, user });
+    log("User registered", user);
   } catch (error) {
     console.error(error); // Helps with debugging
     res.status(500).json({ msg: "Server error" });
@@ -53,6 +55,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.json({ token, user });
+    log("User logged in", user);
   } catch (error) {
     console.error(error); // Helps with debugging
     res.status(500).json({ msg: "Server error" });
